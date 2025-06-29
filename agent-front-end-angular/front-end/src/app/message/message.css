@@ -1,0 +1,87 @@
+/* src/app/message/message.component.css */
+.message-container {
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.message-container.user {
+  justify-content: flex-end;
+}
+
+.message-container.bot {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 12px 18px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 51, 160, 0.12);
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.message-bubble:hover {
+  transform: translateY(-2px);
+}
+
+.message-bubble.bot {
+  background-color: var(--text-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 20px 20px 20px 5px;
+}
+
+.message-bubble.bot::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+      to bottom left,
+      var(--text-light) 0%,
+      var(--text-light) 50%,
+      transparent 50%,
+      transparent 100%
+    ),
+    linear-gradient(to bottom left, var(--border-color) 0%, var(--border-color) 100%);
+  background-size: 100% 100%, 100% 100%;
+}
+
+.message-bubble.user {
+  background-color: var(--accent-blue);
+  color: var(--text-light);
+  border-radius: 20px 20px 5px 20px;
+}
+
+.message-bubble.user::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+    to bottom right,
+    var(--accent-blue) 0%,
+    var(--accent-blue) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+}
+
+/*
+  Angular's view encapsulation means styles in this component will automatically apply to its template.
+  We can style the elements rendered by ngx-markdown directly.
+*/
+.message-bubble p {
+  margin: 0;
+}
+.message-bubble ul,
+.message-bubble ol {
+  padding-left: 20px;
+  margin: 10px 0 0;
+}

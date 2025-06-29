@@ -1,0 +1,17 @@
+/* src/styles.css */
+:root {
+  --primary-blue: #0033a0;
+  --accent-blue: #00b4e1;
+  --background-light: #f4f7fc;
+  --text-dark: #212529;
+  --text-light: #ffffff;
+  --border-color: #dee2e6;
+  --card-shadow: 0 4px 15px rgba(0, 51, 160, 0.08);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+}

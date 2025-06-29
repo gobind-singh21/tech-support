@@ -1,0 +1,7 @@
+<!-- src/app/message/message.component.html -->
+<div class="message-container" [ngClass]="message.sender">
+  <div class="message-bubble" [ngClass]="message.sender">
+    <!-- Use the markdown component to render text -->
+    <markdown [data]="message.text"></markdown>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/cli": "^20.0.4",
+    "ngx-markdown": "^20.0.0"
+  }
+}
