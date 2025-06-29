@@ -1,0 +1,120 @@
+/* src/components/ChatWidget.css */
+
+/* --- The Floating 'Open Chat' Button --- */
+.chat-open-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary-blue);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  z-index: 1000;
+}
+
+.chat-open-button:hover {
+  background-color: #00227a;
+  transform: scale(1.1);
+}
+
+.chat-open-button svg {
+  width: 32px;
+  height: 32px;
+}
+
+
+/* --- The Main Widget Container --- */
+.chat-widget-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 90vw;
+  max-width: 400px;
+  height: 80vh;
+  max-height: 600px;
+  background-color: var(--background-light);
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  
+  /* --- Animation for opening/closing --- */
+  transform-origin: bottom right;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s;
+}
+
+/* States for animation */
+.chat-widget-container.closed {
+  transform: scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chat-widget-container.open {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* --- Widget Header --- */
+.widget-header {
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0; /* Prevents header from shrinking */
+}
+
+.widget-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.widget-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.widget-controls button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.25rem;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.widget-controls button:hover {
+  opacity: 1;
+}
+
+/* Spinner and Error styling within the widget */
+.widget-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.widget-error-banner {
+  padding: 1rem;
+  background-color: #dc3545;
+  color: white;
+  text-align: center;
+  font-size: 0.9rem;
+}

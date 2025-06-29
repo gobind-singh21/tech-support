@@ -1,7 +1,7 @@
 /* src/components/Message.css */
 .message-container {
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .message-container.user {
@@ -14,25 +14,87 @@
 
 .message-bubble {
   max-width: 80%;
-  padding: 10px 15px;
-  border-radius: 20px;
+  padding: 12px 18px;
+  border-radius: 20px; /* Uniform radius on all corners now */
   line-height: 1.5;
   word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 51, 160, 0.12);
+  transition: transform 0.2s ease;
+  
+  /* --- KEY CHANGE 1: Add position relative for tail positioning --- */
+  position: relative;
+  background-color: rgb(212, 212, 212);
 }
 
+.message-bubble:hover {
+  transform: translateY(-2px);
+}
+
+/* --- USER BUBBLE --- */
 .message-bubble.user {
   background-color: var(--accent-blue);
   color: var(--text-light);
-  border-bottom-right-radius: 5px;
+  /* The tail will create the bottom-right point, so we use a uniform radius */
+  border-radius: 20px 20px 5px 20px;
 }
 
+/* --- BOT BUBBLE --- */
 .message-bubble.bot {
-  background-color: var(--bot-message-bg);
+  background-color: var(--text-light);
   color: var(--text-dark);
-  border-bottom-left-radius: 5px;
+  border: 1px solid var(--border-color);
+  /* The tail will create the bottom-left point */
+  border-radius: 20px 20px 20px 5px;
 }
 
-/* Markdown styling */
+
+/* --- THE TAILS: Created using the CSS triangle trick --- */
+
+/* User's tail */
+.message-bubble.user::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(
+    to bottom right, 
+    var(--accent-blue) 0%, 
+    var(--accent-blue) 50%, 
+    transparent 50%, 
+    transparent 100%);
+}
+
+/* Bot's tail */
+.message-bubble.bot::after {
+  content: '';
+  position: absolute;
+  bottom: 0px;
+  left: -10px;
+  width: 20px;
+  height: 20px;
+  /* This complex background creates a white triangle with a gray border */
+  background: 
+    /* The white fill */
+    linear-gradient(
+      to bottom left, 
+      var(--text-light) 0%, 
+      var(--text-light) 50%, 
+      transparent 50%, 
+      transparent 100%
+    ),
+    /* The gray border behind it */
+    linear-gradient(
+      to bottom left, 
+      var(--border-color) 0%, 
+      var(--border-color) 100%
+    );
+  background-size: 100% 100%, 100% 100%; /* Ensure both gradients cover the area */
+}
+
+
+/* Markdown styling (remains the same) */
 .message-bubble p {
   margin: 0;
 }

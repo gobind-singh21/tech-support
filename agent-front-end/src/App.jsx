@@ -1,135 +1,65 @@
 // src/App.jsx
-import { useState, useEffect } from 'react';
-import ChatWindow from './components/ChatWindow';
-import ChatInput from './components/ChatInput';
+import React from 'react';
+import ChatWidget from './components/ChatWidget';
 import './App.css';
 
-// --- CONFIGURATION ---
-const APP_NAME = 'it_support_agent';
-const BASE_URL = "http://localhost:8000"; // IMPORTANT: Your backend server URL
+// Simple SVG for the logo
+const SbiLogoIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
+    <path d="M12 6V12L16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 
 function App() {
-  // --- STATE MANAGEMENT ---
-  const [messages, setMessages] = useState([]);
-  const [userId, setUserId] = useState('');
-  const [sessionId, setSessionId] = useState('');
-  const [isLoading, setIsLoading] = useState(true); // True during initial session creation
-  const [isTyping, setIsTyping] = useState(false); // True when waiting for bot response
-  const [error, setError] = useState(null);
-
-  // --- EFFECT FOR SESSION INITIALIZATION ---
-  useEffect(() => {
-    const initializeSession = async () => {
-      try {
-        setError(null);
-        setIsLoading(true);
-
-        const newUserId = crypto.randomUUID();
-        const newSessionId = crypto.randomUUID();
-
-        const createSessionUrl = `${BASE_URL}/apps/${APP_NAME}/users/${newUserId}/sessions/${newSessionId}`;
-        const response = await fetch(createSessionUrl, { method: 'POST' });
-        
-        if (!response.ok) {
-          throw new Error(`Failed to create session. Server responded with ${response.status}.`);
-        }
-
-        // Session created successfully
-        setUserId(newUserId);
-        setSessionId(newSessionId);
-        setMessages([{ 
-          sender: 'bot', 
-          text: "Hello! Welcome to IT Support. How can I assist you today?" 
-        }]);
-
-      } catch (err) {
-        console.error("Initialization Error:", err);
-        setError(err.message || 'Could not connect to the agent. Please check the console and refresh.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    initializeSession();
-  }, []); // Empty array ensures this runs only once on mount
-
-  // --- FUNCTION TO HANDLE SENDING A MESSAGE ---
-  const handleSendMessage = async (messageText) => {
-    if (!messageText || isTyping || isLoading) return;
-
-    // Add user's message to the chat immediately
-    const userMessage = { sender: 'user', text: messageText };
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-    setIsTyping(true);
-
-    try {
-      const payload = {
-        appName: APP_NAME,
-        userId: userId,
-        sessionId: sessionId,
-        newMessage: { role: "user", parts: [{ "text": messageText }] }
-      };
-
-      const response = await fetch(`${BASE_URL}/run`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
-      
-      const responseData = await response.json();
-      
-      // Process the response to extract all text parts
-      const botReplyText = responseData.reduce((acc, item) => {
-        if (item.content?.parts) {
-          const textPart = item.content.parts
-            .filter(part => part.text)
-            .map(part => part.text)
-            .join('');
-          return acc + textPart;
-        }
-        return acc;
-      }, '');
-
-      if (botReplyText) {
-        setMessages(prev => [...prev, { sender: 'bot', text: botReplyText.trim() }]);
-      } else {
-        console.warn("Response contained no displayable text:", responseData);
-        setMessages(prev => [...prev, { sender: 'bot', text: "I received a response, but it was empty." }]);
-      }
-
-    } catch (err) {
-      console.error("Send Message Error:", err);
-      setMessages(prev => [...prev, { sender: 'bot', text: `Sorry, an error occurred: ${err.message}` }]);
-    } finally {
-      setIsTyping(false);
-    }
-  };
-
-  // --- RENDER LOGIC ---
-  const isFormDisabled = isLoading || isTyping || !!error;
-
   return (
-    <div className="chat-app">
-      <header className="chat-header">
-        <h1>IT Support Agent</h1>
-        {sessionId && <p>Session: {sessionId}</p>}
+    <div className="sbi-website">
+      <header className="site-header">
+        <div className="logo">
+          <SbiLogoIcon />
+          <span>SBI Life</span>
+        </div>
+        <nav className="site-nav">
+          <a href="#plans">Insurance Plans</a>
+          <a href="#services">Our Services</a>
+          <a href="#about">About Us</a>
+          <a href="#contact">Contact</a>
+        </nav>
       </header>
-      
-      <main style={{ flexGrow: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        {isLoading && <div className="spinner-container"><div className="spinner"></div></div>}
-        
-        {error && <div className="error-banner">{error}</div>}
-        
-        {!isLoading && !error && (
-          <ChatWindow messages={messages} isTyping={isTyping} />
-        )}
+
+      <main>
+        <section className="hero-section">
+          <h1>Secure Your Future, Today.</h1>
+          <p>With SBI Life, protect what matters most with plans tailored for you and your family's needs.</p>
+        </section>
+
+        <section className="content-section">
+          <h2>Our Popular Plans</h2>
+          <div className="card-container">
+            <div className="card">
+              <h3>Term Insurance</h3>
+              <p>Provide a financial safety net for your loved ones at an affordable premium. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div className="card">
+              <h3>ULIPs</h3>
+              <p>A perfect blend of investment and life insurance to help you achieve your long-term financial goals. Sed do eiusmod tempor incididunt.</p>
+            </div>
+            <div className="card">
+              <h3>Retirement Plans</h3>
+              <p>Plan for a financially independent retired life. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+            </div>
+          </div>
+        </section>
       </main>
-      
-      <ChatInput onSendMessage={handleSendMessage} disabled={isFormDisabled} />
+
+      <footer className="site-footer">
+        <p>© 2023 SBI Life Insurance Company Ltd. All rights reserved.</p>
+        <p>This is a fictional demonstration website.</p>
+      </footer>
+
+      {/* The Chat Widget is rendered here, but it will float on its own */}
+      <ChatWidget />
     </div>
   );
 }
