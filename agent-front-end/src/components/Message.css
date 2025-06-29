@@ -1,0 +1,43 @@
+/* src/components/Message.css */
+.message-container {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.message-container.user {
+  justify-content: flex-end;
+}
+
+.message-container.bot {
+  justify-content: flex-start;
+}
+
+.message-bubble {
+  max-width: 80%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.message-bubble.user {
+  background-color: var(--accent-blue);
+  color: var(--text-light);
+  border-bottom-right-radius: 5px;
+}
+
+.message-bubble.bot {
+  background-color: var(--bot-message-bg);
+  color: var(--text-dark);
+  border-bottom-left-radius: 5px;
+}
+
+/* Markdown styling */
+.message-bubble p {
+  margin: 0;
+}
+
+.message-bubble ul, .message-bubble ol {
+  padding-left: 20px;
+  margin: 10px 0 0;
+}

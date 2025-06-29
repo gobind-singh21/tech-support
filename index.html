@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Chat Interface</title>
+    <style>
+        :root {
+            --body-bg: #f0f2f5;
+            --chat-bg: #ffffff;
+            --user-msg-bg: #0084ff;
+            --bot-msg-bg: #e4e6eb;
+            --text-light: #ffffff;
+            --text-dark: #050505;
+            --border-color: #dcdfe3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--body-bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 600px;
+            height: 90vh;
+            max-height: 800px;
+            background-color: var(--chat-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 1rem;
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+        
+        .chat-header h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+        
+        .chat-header p {
+            margin: 5px 0 0;
+            font-size: 0.75rem;
+            color: #65676b;
+            word-break: break-all;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .message {
+            padding: 0.75rem 1rem;
+            border-radius: 18px;
+            max-width: 75%;
+            line-height: 1.4;
+        }
+
+        .message.user {
+            background-color: var(--user-msg-bg);
+            color: var(--text-light);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot {
+            background-color: var(--bot-msg-bg);
+            color: var(--text-dark);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .message.status, .message.thinking {
+            background-color: transparent;
+            color: #65676b;
+            font-style: italic;
+            align-self: flex-start;
+        }
+
+        .chat-form {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+
+        #message-input {
+            flex-grow: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+            outline: none;
+        }
+        
+        #message-input:focus {
+            border-color: var(--user-msg-bg);
+        }
+        
+        #message-input:disabled {
+            background-color: #f0f2f5;
+        }
+
+        #send-button {
+            background-color: var(--user-msg-bg);
+            color: var(--text-light);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        #send-button:hover:not(:disabled) {
+            background-color: #0073e0;
+        }
+        
+        #send-button:disabled {
+            background-color: #bcc0c4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>IT Support Agent</h1>
+            <p id="session-info"></p>
+        </div>
+        <div id="chat-window" class="chat-window"></div>
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-button" type="submit"><span>➤</span></button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const APP_NAME = 'it_support_agent';
+            const BASE_URL = "http://localhost:8000"
+            const RUN_ENDPOINT = '/run';
+            const SESSION_ENDPOINT_BASE = `/apps/${APP_NAME}/users/`;
+
+            let userId = '';
+            let sessionId = '';
+
+            const chatWindow = document.getElementById('chat-window');
+            const chatForm = document.getElementById('chat-form');
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            const sessionInfo = document.getElementById('session-info');
+
+            function setFormEnabled(enabled) {
+                messageInput.disabled = !enabled;
+                sendButton.disabled = !enabled;
+                if(enabled) messageInput.focus();
+            }
+
+            function addMessageToChat(text, sender, id = null) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', ...sender.split(' '));
+                if (id) messageElement.id = id;
+                messageElement.textContent = text;
+                chatWindow.appendChild(messageElement);
+                scrollToBottom();
+                return messageElement;
+            }
+            
+            function scrollToBottom() {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            async function initializeSession() {
+                setFormEnabled(false);
+                const statusMessage = addMessageToChat('Connecting to the agent...', 'bot', 'status-message');
+
+                userId = crypto.randomUUID();
+                sessionId = crypto.randomUUID();
+                sessionInfo.textContent = `UserID: ${userId} | SessionID: ${sessionId}`;
+
+                const createSessionUrl = `${SESSION_ENDPOINT_BASE}${userId}/sessions/${sessionId}`;
+                
+                try {
+                    const response = await fetch(BASE_URL + createSessionUrl, { method: 'POST' });
+                    if (!response.ok) throw new Error(`Server error: ${response.status} ${response.statusText}`);
+                    
+                    console.log(`Session created successfully: ${createSessionUrl}`);
+                    statusMessage.remove();
+                    addMessageToChat("Hello! How can I help you today?", 'bot');
+                    setFormEnabled(true);
+                } catch (error) {
+                    console.error('Failed to create session:', error);
+                    statusMessage.textContent = 'Error: Could not connect to the agent. Please refresh the page.';
+                    statusMessage.style.color = 'red';
+                }
+            }
+
+            chatForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const userMessage = messageInput.value.trim();
+                if (!userMessage) return;
+
+                addMessageToChat(userMessage, 'user');
+                messageInput.value = '';
+                
+                setFormEnabled(false);
+                const thinkingMessage = addMessageToChat('Bot is thinking...', 'bot thinking');
+
+                try {
+                    const payload = {
+                        appName: APP_NAME,
+                        userId: userId,
+                        sessionId: sessionId,
+                        newMessage: { role: "user", parts: [{ "text": userMessage }] }
+                    };
+
+                    const response = await fetch(BASE_URL + RUN_ENDPOINT, {
+                        method: 'POST',
+                        // *** THIS IS THE KEY CHANGE TO AVOID PREFLIGHT ***
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                    
+                    const responseData = await response.json();
+                    
+                    let botReplyText = '';
+                    responseData.forEach(item => {
+                        if (item.content?.parts) {
+                            item.content.parts.forEach(part => {
+                                if (part.text) botReplyText += part.text;
+                            });
+                        }
+                    });
+
+                    thinkingMessage.remove();
+                    if (botReplyText) {
+                        addMessageToChat(botReplyText.trim(), 'bot');
+                    } else {
+                        addMessageToChat("I received a response but it contained no message.", 'bot');
+                        console.warn("Received response with no displayable text:", responseData);
+                    }
+
+                } catch (error) {
+                    thinkingMessage.remove();
+                    addMessageToChat(`Sorry, an error occurred. \nError: ${error.message}`, 'bot');
+                    console.error('Failed to send message:', error);
+                } finally {
+                    setFormEnabled(true);
+                }
+            });
+
+            initializeSession();
+        });
+    </script>
+</body>
+</html>

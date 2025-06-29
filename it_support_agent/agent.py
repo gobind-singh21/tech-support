@@ -5,7 +5,7 @@ from .tool.tool import create_support_ticket
 
 root_agent = Agent(
   name="it_support_agent",
-  model="gemini-2.0-flash", # Using a more recent model name
+  model="gemini-2.0-flash",
   description="An AI agent that assists IT tech support with raising tickets for user complaints.",
   instruction="""You are an IT tech support agent. Your primary goal is to help users report their IT issues and create support tickets.
   When a user describes a problem, you need to:
@@ -24,7 +24,3 @@ root_agent = Agent(
   tools=[create_support_ticket],
   input_schema=UserComplaint
 )
-
-# Note: I also updated your API call to use `model_dump()` instead of the
-# deprecated `.dict()` and made the ticket ID lookup slightly more robust.
-# The model name was also updated to a common modern one.

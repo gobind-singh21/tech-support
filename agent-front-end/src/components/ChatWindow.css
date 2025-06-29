@@ -1,0 +1,15 @@
+/* src/components/ChatWindow.css */
+.chat-window {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.typing-indicator {
+  align-self: flex-start;
+  color: #6c757d;
+  font-style: italic;
+  padding: 10px 15px;
+}
