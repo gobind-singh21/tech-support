@@ -1,12 +1,14 @@
 /* src/styles.css */
 :root {
-  --primary-blue: #0033a0;
-  --accent-blue: #00b4e1;
+  /* --- IndiaFirst Life Color Palette --- */
+  --primary-blue: #0d2d6c;   /* IndiaFirst Deep Blue */
+  --accent-orange: #f37021; /* IndiaFirst Vibrant Orange */
+
   --background-light: #f4f7fc;
   --text-dark: #212529;
   --text-light: #ffffff;
   --border-color: #dee2e6;
-  --card-shadow: 0 4px 15px rgba(0, 51, 160, 0.08);
+  --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 body {

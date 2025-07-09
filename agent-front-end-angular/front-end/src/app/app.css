@@ -1,105 +1,42 @@
 /* src/app/app.component.css */
-.sbi-website {
-  width: 100%;
-}
-
-.site-header {
-  background-color: var(--text-light);
-  padding: 1rem 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--primary-blue);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .logo svg {
-  color: var(--accent-blue);
-}
-
-.site-nav a {
-  margin-left: 2rem;
-  text-decoration: none;
-  color: var(--text-dark);
-  font-weight: 500;
-  transition: color 0.2s;
+  color: var(--accent-orange);
 }
 
 .site-nav a:hover {
-  color: var(--accent-blue);
+  color: var(--accent-orange);
 }
 
+/* All other styles from the previous app.component.css remain the same */
+.indiafirst-website { width: 100%; }
+.site-header {
+  background-color: var(--text-light); padding: 1rem 5%; display: flex;
+  justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo {
+  font-size: 1.8rem; font-weight: 700; color: var(--primary-blue);
+  display: flex; align-items: center; gap: 10px;
+}
+.site-nav a {
+  margin-left: 2rem; text-decoration: none; color: var(--text-dark);
+  font-weight: 500; transition: color 0.2s;
+}
 .hero-section {
-  background: linear-gradient(to right, var(--primary-blue), #0056b3);
-  color: var(--text-light);
-  text-align: center;
-  padding: 5rem 1rem;
+  background: var(--primary-blue); color: var(--text-light); text-align: center; padding: 5rem 1rem;
 }
-
-.hero-section h1 {
-  font-size: 3rem;
-  margin: 0;
-}
-
-.hero-section p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 1rem auto 0;
-}
-
-.content-section {
-  padding: 4rem 5%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.content-section h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  color: var(--primary-blue);
-  margin-bottom: 3rem;
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
+.hero-section h1 { font-size: 3rem; margin: 0; }
+.hero-section p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 1rem auto 0; }
+.content-section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
+.content-section h2 { text-align: center; font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 3rem; }
+.card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
 .card {
-  background-color: var(--text-light);
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: var(--card-shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--text-light); border-radius: 10px; padding: 2rem;
+  box-shadow: var(--card-shadow); transition: transform 0.2s, box-shadow 0.2s;
 }
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 51, 160, 0.12);
-}
-
-.card h3 {
-  color: var(--primary-blue);
-  margin-top: 0;
-}
-
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 51, 160, 0.12); }
+.card h3 { color: var(--primary-blue); margin-top: 0; }
 .site-footer {
-  background-color: #1d2b3a;
-  color: #adb5bd;
-  text-align: center;
-  padding: 2rem 1rem;
-  font-size: 0.9rem;
+  background-color: #1d2b3a; color: #adb5bd; text-align: center;
+  padding: 2rem 1rem; font-size: 0.9rem;
 }
