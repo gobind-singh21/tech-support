@@ -1,50 +1,69 @@
 <!-- src/app/app.component.html -->
 <div class="indiafirst-website">
   <header class="site-header">
-    <div class="logo">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/>
-        <path d="M12 11.5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
-      </svg>
-      <span>IndiaFirst Life</span>
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="container">
+        <a href="#" class="top-link">Search</a>
+        <a href="#" class="button-orange">Pay Premium</a>
+        <a href="#" class="top-link">Track application</a>
+        <a href="#" class="top-link">En</a>
+        <a href="#" class="top-link">Login</a>
+      </div>
     </div>
-    <nav class="site-nav">
-      <a href="#plans">Our Plans</a>
-      <a href="#claims">Claims</a>
-      <a href="#about">About Us</a>
-      <a href="#support">Support</a>
+
+    <!-- Main Navigation Bar -->
+    <nav class="main-nav">
+      <div class="container">
+        <img src="logo.png" alt="IndiaFirst Life Insurance Logo" class="main-logo">
+        <ul class="nav-links">
+          <li><a href="#">Term Insurance</a></li>
+          <li><a href="#">Life Insurance Plans</a></li>
+          <li><a href="#">Tools & Calculators</a></li>
+          <li><a href="#">Learn</a></li>
+          <li><a href="#">Claim</a></li>
+          <li><a href="#">Support</a></li>
+        </ul>
+        <a href="#" class="nav-cta">Ask an Expert →</a>
+      </div>
     </nav>
   </header>
 
   <main>
-    <section class="hero-section">
-      <h1>Because Life is Full of Certainties.</h1>
-      <p>Discover insurance solutions that protect you and your loved ones through all of life's moments.</p>
-    </section>
-
-    <section class="content-section">
-      <h2>Solutions For Your Needs</h2>
-      <div class="card-container">
-        <div class="card">
-          <h3>Protection Plans</h3>
-          <p>Ensure your family's financial security against unforeseen events with our comprehensive term plans.</p>
-        </div>
-        <div class="card">
-          <h3>Savings Plans</h3>
-          <p>Build a corpus for your future goals, be it your child's education or a comfortable retirement.</p>
-        </div>
-        <div class="card">
-          <h3>Retirement Plans</h3>
-          <p>Plan today for a stress-free and financially independent life after retirement.</p>
-        </div>
+    <div class="container">
+      <!-- Breadcrumbs -->
+      <div class="breadcrumbs">
+        <a href="#">Home</a>  >  <span>Life Insurance Plans</span>
       </div>
-    </section>
-  </main>
 
-  <footer class="site-footer">
-    <p>© 2024 IndiaFirst Life Insurance Company Ltd. All rights reserved.</p>
-    <p>This is a fictional demonstration website.</p>
-  </footer>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <p class="hero-pre-title">Ensure a certain & secure future for your loved ones!</p>
+          <h1 class="hero-title">Life Insurance Policy</h1>
+          <p class="hero-description">
+            IndiaFirst Life Insurance offers various types of life insurance plans
+            to meet different goals of your life and to ensure your loved ones' protection.
+            At IndiaFirst Life, we take pride in creating life insurance solutions that
+            are simple, affordable, and effective.
+          </p>
+          <ul class="features-list">
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Secure your loved ones</li>
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Build wealth</li>
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Plan for second inning of your life</li>
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Invest for your kid's education</li>
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Get guaranteed income</li>
+            <li><svg class="check-icon" viewBox="0 0 16 16"><path fill="currentColor" d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg> Enjoy dual benefits of insurance</li>
+          </ul>
+          <button class="button-blue">Learn More</button>
+        </div>
+        <div class="hero-image-container">
+          <img src="family-hero.jpg" alt="">
+          <!-- The image is a background for the curve effect -->
+        </div>
+      </section>
+    </div>
+  </main>
 
   <app-chat-widget></app-chat-widget>
 </div>

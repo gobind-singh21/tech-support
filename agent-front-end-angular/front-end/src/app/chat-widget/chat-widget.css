@@ -2,30 +2,28 @@
 .chat-open-button {
   position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
   background-color: var(--primary-blue);
-  color: white; border-radius: 50%; border: none; display: flex;
-  justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer; transition: transform 0.2s, background-color 0.2s; z-index: 1000;
+  border-radius: 50%; border: 2px solid white;
+  display: flex; justify-content: center; align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer;
+  z-index: 1000; overflow: hidden; padding: 0;
 }
-.chat-open-button:hover { background-color: #002e6e; transform: scale(1.1); }
+.chat-open-button img { width: 100%; height: 100%; }
 
 .chat-widget-container {
   position: fixed; bottom: 20px; right: 20px; width: 90vw; max-width: 400px;
-  height: 80vh; max-height: 600px; background-color: var(--background-light);
+  height: 80vh; max-height: 600px; background-color: #f7f7f7;
   border-radius: 15px; box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
   display: flex; flex-direction: column; overflow: hidden; z-index: 1000;
   transform-origin: bottom right; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .chat-widget-container.closed { transform: scale(0); opacity: 0; pointer-events: none; }
 .chat-widget-container.open { transform: scale(1); opacity: 1; }
-/* .maximized class has been removed */
 
 .widget-header {
   background-color: var(--primary-blue); color: white; padding: 0.75rem 1rem;
   display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;
 }
 .widget-header h3 { margin: 0; font-size: 1.1rem; }
-
-.widget-controls { display: flex; }
 .widget-controls button {
   background: none; border: none; color: white; cursor: pointer; padding: 0.25rem 0.5rem;
   opacity: 0.8; transition: opacity 0.2s, transform 0.2s;
@@ -37,30 +35,16 @@
   flex-grow: 1; border: 1px solid var(--border-color); border-radius: 20px;
   padding: 12px 18px; font-size: 1rem; outline: none; transition: border-color 0.2s;
 }
-.chat-input:focus { border-color: var(--accent-orange); } /* THEME CHANGE */
-.chat-input:disabled { background-color: #f8f9fa; }
-
-/* The rest of the CSS (spinner, form, etc.) is unchanged */
+.chat-input:focus { border-color: var(--accent-orange); }
+/* ... (The rest of the CSS for spinner, form, etc. can remain the same) ... */
 .chat-content { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 .chat-window { flex-grow: 1; padding: 1rem; overflow-y: auto; }
 .typing-indicator { padding: 10px 15px; color: #6c757d; font-style: italic; }
-.widget-loading-container, .widget-error-banner {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex;
-  align-items: center; justify-content: center; background: var(--background-light);
-}
-.widget-error-banner { background-color: #dc3545; color: white; font-size: 0.9rem; }
-.spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%;
-  border-left-color: var(--primary-blue); animation: spin 1s ease infinite;
-}
+.widget-loading-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--background-light); }
+.widget-error-banner { background-color: #dc3545; color: white; font-size: 0.9rem; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;}
+.spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: var(--primary-blue); animation: spin 1s ease infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.chat-input-form {
-  display: flex; padding: 1rem; background-color: #fff; border-top: 1px solid var(--border-color); flex-shrink: 0;
-}
-.send-button {
-  background-color: var(--primary-blue); color: white; border: none; border-radius: 50%;
-  width: 48px; height: 48px; margin-left: 10px; font-size: 1.5rem; cursor: pointer;
-  display: flex; justify-content: center; align-items: center; transition: background-color 0.2s, transform 0.1s;
-}
+.chat-input-form { display: flex; padding: 1rem; background-color: #fff; border-top: 1px solid var(--border-color); flex-shrink: 0; }
+.send-button { background-color: var(--primary-blue); color: white; border: none; border-radius: 50%; width: 48px; height: 48px; margin-left: 10px; font-size: 1.5rem; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: background-color 0.2s, transform 0.1s; }
 .send-button:hover:not(:disabled) { background-color: #002e6e; transform: scale(1.05); }
 .send-button:disabled { background-color: #a9b7d1; cursor: not-allowed; }

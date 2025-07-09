@@ -1,42 +1,160 @@
 /* src/app/app.component.css */
-.logo svg {
-  color: var(--accent-orange);
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.site-nav a:hover {
-  color: var(--accent-orange);
-}
-
-/* All other styles from the previous app.component.css remain the same */
-.indiafirst-website { width: 100%; }
+/* --- Header Styling --- */
 .site-header {
-  background-color: var(--text-light); padding: 1rem 5%; display: flex;
-  justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background-color: var(--background-light);
 }
-.logo {
-  font-size: 1.8rem; font-weight: 700; color: var(--primary-blue);
-  display: flex; align-items: center; gap: 10px;
+
+.top-bar {
+  background-color: var(--background-offwhite);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 0;
 }
-.site-nav a {
-  margin-left: 2rem; text-decoration: none; color: var(--text-dark);
-  font-weight: 500; transition: color 0.2s;
+.top-bar .container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
 }
+.top-bar .top-link {
+  font-size: 0.85rem;
+  color: var(--text-gray);
+  text-decoration: none;
+  font-weight: 500;
+}
+.top-bar .button-orange {
+  background-color: var(--accent-orange);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.main-nav {
+  padding: 1rem 0;
+}
+.main-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main-logo {
+  padding-left: 10px;
+  height: 50px;
+  scale: 4;
+}
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--accent-orange);
+}
+.nav-cta {
+  font-weight: 500;
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+/* --- Main Content Styling --- */
+.breadcrumbs {
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-gray);
+}
+.breadcrumbs a {
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
 .hero-section {
-  background: var(--primary-blue); color: var(--text-light); text-align: center; padding: 5rem 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 4rem;
 }
-.hero-section h1 { font-size: 3rem; margin: 0; }
-.hero-section p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 1rem auto 0; }
-.content-section { padding: 4rem 5%; max-width: 1200px; margin: 0 auto; }
-.content-section h2 { text-align: center; font-size: 2.5rem; color: var(--primary-blue); margin-bottom: 3rem; }
-.card-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-.card {
-  background-color: var(--text-light); border-radius: 10px; padding: 2rem;
-  box-shadow: var(--card-shadow); transition: transform 0.2s, box-shadow 0.2s;
+
+.hero-content {
+  flex-basis: 50%;
 }
-.card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 51, 160, 0.12); }
-.card h3 { color: var(--primary-blue); margin-top: 0; }
-.site-footer {
-  background-color: #1d2b3a; color: #adb5bd; text-align: center;
-  padding: 2rem 1rem; font-size: 0.9rem;
+.hero-image-container {
+  flex-basis: 50%;
+  height: 500px;
+  background-image: url('/assets/images/family-hero.png');
+  background-size: cover;
+  background-position: center;
+  /* This creates the beautiful curve effect */
+  border-top-left-radius: 250px;
+  border-bottom-left-radius: 250px;
+}
+
+.hero-pre-title {
+  font-size: 1rem;
+  color: var(--text-gray);
+  margin-bottom: 0.5rem;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.hero-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-gray);
+  margin-bottom: 2rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+.check-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--accent-orange);
+}
+
+.button-blue {
+  background-color: var(--primary-blue);
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.button-blue:hover {
+  background-color: #002e6e;
 }
